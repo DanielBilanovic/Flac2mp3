@@ -6,9 +6,8 @@
 
 # Check if lame is installed and in PATH
 if ! command -v lame > /dev/null 2>&1 ; then
-    echo "fehlt"
-else
-    echo "ist da"
+    echo "lame is needed to convert, but it could not be found.
+    Please install lame or add its location to your path and rerun the script!"
 fi
 
 # Check if $2 has a trailing slash, and if so remove it
