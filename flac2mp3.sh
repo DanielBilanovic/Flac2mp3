@@ -2,7 +2,7 @@
 # $1: Source Directory (aka where the FLACs are)
 # $2: Destination Directory (aka where the mp3s will be)
 
-# TODO: Get id3 tag from directories and files
+# TODO: Get id3 tag from directories and files (last loop)
 
 # Check if lame is installed and in PATH
 if ! command -v lame > /dev/null 2>&1 ; then
