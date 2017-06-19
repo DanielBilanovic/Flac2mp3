@@ -4,6 +4,13 @@
 
 # TODO: Get id3 tag from directories and files
 
+# Check if lame is installed and in PATH
+if ! command -v lame > /dev/null 2>&1 ; then
+    echo "fehlt"
+else
+    echo "ist da"
+fi
+
 # Check if $2 has a trailing slash, and if so remove it
 BASEOUTDIR=$2
 if [[ $BASEOUTDIR[-1] = "/" ]] then
@@ -24,3 +31,4 @@ for i in $ALLFILES ; do
     TEMP=$i:gs/.flac/
     lame --preset insane "$TEMP.flac" "$BASEOUTDIR/$TEMP.mp3"
 done
+
