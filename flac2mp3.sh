@@ -8,6 +8,7 @@
 if ! command -v lame > /dev/null 2>&1 ; then
     echo "lame is needed to convert, but it could not be found.
     Please install lame or add its location to your path and rerun the script!"
+    exit 1
 fi
 
 # Check if $2 has a trailing slash, and if so remove it
