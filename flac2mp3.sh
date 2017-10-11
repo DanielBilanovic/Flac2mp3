@@ -2,8 +2,6 @@
 # $1: Source Directory (aka where the FLACs are)
 # $2: Destination Directory (aka where the mp3s will be)
 
-# TODO: Get id3 tag from directories and files (last loop)
-
 # Check if lame is installed and in PATH
 if ! command -v lame > /dev/null 2>&1 ; then
     echo "lame is needed to convert, but it could not be found.
@@ -28,7 +26,15 @@ ALLFILES=("${(@f)$(find $1 -type f -name "*.flac")}")
 
 # Encode
 for i in $ALLFILES ; do
+    ARTIST=`metaflac --show-tag=ARTIST $i | sed "s/^.*=//g"`
+    DATE=`metaflac --show-tag=DATE $i | sed "s/^.*=//g"`
+    ALBUM=`metaflac --show-tag=ALBUM $i | sed "s/^.*=//g"`
+    TRACKNUMBER=`metaflac --show-tag=TRACKNUMBER $i | sed "s/^.*=//g"`
+    TRACKNUMBER=$TRACKNUMBER/`metaflac --show-tag=TRACKTOTAL $i | sed "s/^.*=//g"`
+    TITLE=`metaflac --show-tag=TITLE $i | sed "s/^.*=//g"`
+    GENRE=`metaflac --show-tag=GENRE $i | sed "s/^.*=//g"`
+
     TEMP=$i:gs/.flac/
-    lame --preset insane "$TEMP.flac" "$BASEOUTDIR/$TEMP.mp3"
+    lame --preset insane --id3v2-only --ta "$ARTIST" --ty "$DATE" --tl "$ALBUM" --tn "$TRACKNUMBER" --tt "$TITLE" --tg "$GENRE" "$TEMP.flac" "$BASEOUTDIR/$TEMP.mp3"
 done
 
