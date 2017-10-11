@@ -9,6 +9,11 @@ if ! command -v lame > /dev/null 2>&1 ; then
     exit 1
 fi
 
+if [ "$#" -ne 2 ] ; then
+    echo "Please enter a source and a target directory!"
+    exit 1
+fi
+
 # Check if $2 has a trailing slash, and if so remove it
 BASEOUTDIR=$2
 if [[ $BASEOUTDIR[-1] = "/" ]] then
