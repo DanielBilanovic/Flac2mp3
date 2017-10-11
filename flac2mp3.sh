@@ -9,6 +9,7 @@ if ! command -v lame > /dev/null 2>&1 ; then
     exit 1
 fi
 
+# Check if the user entered enough arguments
 if [ "$#" -ne 2 ] ; then
     echo "Please enter a source and a target directory!"
     exit 1
